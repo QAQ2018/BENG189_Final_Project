@@ -11,7 +11,7 @@
 %initialize membrane parameters:
 %Constants for neuron 1
 %membrane capacitance per unit area:
-C1=0.8e-3      %(muF/cm^2)
+C1=0.9361      %(muF/cm^2)
 %max possible Na+ conductance per unit area:
 gNabar17=18 %((muA/mV)/cm^2)
 %max possible Na+ conductance per unit area:
@@ -66,8 +66,8 @@ EL3 = -68   %(mV)
 
 
 %initialize time step and experiment duration:
-dt=0.01     %time step duration (ms)
-tmax=100    %duration of experiment (ms)
+dt=0.1     %time step duration (ms)
+tmax=300    %duration of experiment (ms)
 %total number of time steps in the experiment:
 klokmax=ceil(tmax/dt)
 %
@@ -88,9 +88,9 @@ vstart= -70  %(mV)
 %(change in v is result of current shock applied at t=0)
 %
 %initialize parameters of subsequent current pulse:
-t1p=20       %starting time (ms)
-t2p=60       %stopping time (ms)
-ip=20        %current applied (muA)
+t1p=100       %starting time (ms)
+t2p=200       %stopping time (ms)
+ip=9        %current applied (muA)
 %
 %initialize checking parameter
 check=0      %set check=1 to enable self-checking

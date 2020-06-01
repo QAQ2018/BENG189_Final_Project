@@ -15,9 +15,10 @@ neuron1.h17(1)=alphah17(v1)/(alphah17(v1)+betah17(v1));
 neuron1.s17(1)=alphas17(v1)/(alphas17(v1)+betas17(v1));
 neuron1.m18(1)=alpham18(v1)/(alpham18(v1)+betam18(v1));
 neuron1.h18(1)=1/(1+exp(v1+32.2/4));
-neuron1.n1(1)=1/(1+exp((-v+14.62)/18.38));
-neuron1.nKA(1)=1/(1+exp(-(v+5.4)/16.4))^4;
+neuron1.n1(1)=1/(1+exp((-v1+14.62)/18.38));
+neuron1.nKA(1)=1/(1+exp(-(v1+5.4)/16.4))^4;
 neuron1.hKA(1)=1/(1+exp((v1+49.9)/4.6));
+
 v2=vhold;
 neuron2.v(1)=v2; %The interneuron in the spine
 neuron2.m(1)=alpham(v2)/(alpham(v2)+betam(v2));
@@ -31,23 +32,23 @@ neuron3.n(1)=alphan(v3)/(alphan(v3)+betan(v3));
 for klok=1:klokmax
   t=klok*dt;                      %note time
   %Neuron 1: The sensory neuron
-  neuron1.m17(klok+1)=snew(neuron1.m17(klok),alpham17(v1),betam17(v1),dt); %update m
-  neuron1.h17(klok+1)=snew(neuron1.h17(klok),alphah17(v1),betah17(v1),dt); %update h
-  neuron1.s17(klok+1)=snew(neuron1.s17(klok),alphas17(v1),betas17(v1),dt); %update s
-  neuron1.m18(klok+1)=snew(neuron1.m18(klok),alpham18(v1),betam18(v1),dt); %update m
-  neuron1.h18(klok+1)=h18_update(neuron1.h18(klok), v1, dt); %update m
-  neuron1.n1(klok+1)=n1_update(neuron1.n1(klok), v1, dt); %update n
-  neuron1.nKA(klok+1)=nKA_update(neuron1.nKA(klok), v1, dt);
-  neuron1.hKA(klok+1)=hKA_update(neuron1.hKA(klok), v1, dt);
-  gNa17=gNabar17*(neuron1.m17(klok+1)^3)*neuron1.h17(klok+1)*neuron1.s17(klok+1);    %sodium conductance
+  neuron1.m17(klok+1)=snew(neuron1.m17(klok),alpham17(v1),betam17(v1),dt); %update m1.7
+  neuron1.h17(klok+1)=snew(neuron1.h17(klok),alphah17(v1),betah17(v1),dt); %update h1.7
+  neuron1.s17(klok+1)=snew(neuron1.s17(klok),alphas17(v1),betas17(v1),dt); %update s1.7
+  neuron1.m18(klok+1)=snew(neuron1.m18(klok),alpham18(v1),betam18(v1),dt); %update m1.8
+  neuron1.h18(klok+1)=h18_update(neuron1.h18(klok), v1, dt); %update m1.8
+  neuron1.n1(klok+1)=n1_update(neuron1.n1(klok), v1, dt);    %update n
+  neuron1.nKA(klok+1)=nKA_update(neuron1.nKA(klok), v1, dt); %update nKA
+  neuron1.hKA(klok+1)=hKA_update(neuron1.hKA(klok), v1, dt); %
+  gNa17=gNabar17*(neuron1.m17(klok+1)^3)*neuron1.h17(klok+1)*neuron1.s17(klok+1);
   gNa18=gNabar18*neuron1.m18(klok+1)*neuron1.h18(klok+1);
-  gNa=gNa17+gNa18;
+  gNa=-gNa17+gNa18;
   gK1=gKbar1*neuron1.n1(klok+1);    %potassium conductance
   gKA=gKbar1A*neuron1.nKA(klok+1)*neuron1.hKA(klok+1);
   gK=gK1+gKA;
   g=gNa+gK+gLbar1;         %total conductance
-  gE=gNa*(v1-ENa1)+gK*(v2-EK1)+gLbar1*(v3-EL1);         %gE=g*E
-  %gE=gNa*ENa2+gK*EK2+gLbar2*EL2;         %gE=g*E
+  %gE=gNa*(v1-ENa1)+gK*(v2-EK1)+gLbar1*(v3-EL1);         %gE=g*E
+  gE=gNa*ENa2+gK*EK2+gLbar2*EL2;         %gE=g*E
 
   %save old value of v for checking purposes:
   %update v:
@@ -82,7 +83,7 @@ for klok=1:klokmax
   else
       gNa_addition = 0;
   end
-  gNa=gNabar3*(neuron3.m(klok+1)^3)*neuron3.h(klok+1)+gNa_addition;    %sodium conductance
+  gNa=gNabar3*(neuron3.m(klok+1)^3)*neuron3.h(klok+1)+gNa_addition;
   gK =gKbar3*(neuron3.n(klok+1)^4);    %potassium conductance
   g=gNa+gK+gLbar3;         %total conductance
   gE=gNa*ENa3+gK*EK3+gLbar3*EL3;         %gE=g*E
