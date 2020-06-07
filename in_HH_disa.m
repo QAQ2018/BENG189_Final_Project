@@ -31,8 +31,6 @@ EL1 = -58.91   %(mV)
 %parameters for neuron 2
 %membrane capacitance per unit area:
 C2=2      %(muF/cm^2)
-%nAChR conductance per unit area:
-gnAChR = 4000 %((muA/mV)/cm^2)
 %max possible Na+ conductance per unit area:
 gNabar2=10 %((muA/mV)/cm^2)
 %max possible K+ conductance per unit area:
@@ -45,12 +43,12 @@ ENa2 = 55   %(mV)
 EK2 = -80   %(mV)
 %leakage channel reversal potential:
 EL2 = -68   %(mV)
+%Ca++ equilibrium potential:
+ECa2 = 137   %(mV)
 
 %parameters for neuron 3
 %membrane capacitance per unit area:
 C3=1      %(muF/cm^2)
-%AMPA conductance per unit area:
-gAMPA = 2007 %((muA/mV)/cm^2)
 %max possible Na+ conductance per unit area:
 gNabar3=120 %((muA/mV)/cm^2)
 %max possible K+ conductance per unit area:
@@ -64,10 +62,16 @@ EK3 = -75   %(mV)
 %leakage channel reversal potential:
 EL3 = -68   %(mV)
 
+%nAChR conductance per unit area:
+gnAChR_max = 2 %((muA/mV)/cm^2)
+%AMPA conductance per unit area:
+gAMPA_max = 7 %((muA/mV)/cm^2)
+%AMPA conductance per unit area:
+gNMDA_max = 3.5 %((muA/mV)/cm^2)
 
 %initialize time step and experiment duration:
 dt=0.1     %time step duration (ms)
-tmax=300    %duration of experiment (ms)
+tmax=200    %duration of experiment (ms)
 %total number of time steps in the experiment:
 klokmax=ceil(tmax/dt)
 %
@@ -83,14 +87,7 @@ t_plot=zeros(1,klokmax);
 %is applied beginning at t=10 ms.
 %voltage prior to t=0:
 vhold=  -70  %(mV)
-%voltage just after t=0:
-vstart= -70  %(mV)
-%(change in v is result of current shock applied at t=0)
-%
-%initialize parameters of subsequent current pulse:
-t1p=100       %starting time (ms)
-t2p=200       %stopping time (ms)
-ip=9        %current applied (muA)
+
 %
 %initialize checking parameter
 check=0      %set check=1 to enable self-checking

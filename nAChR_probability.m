@@ -1,0 +1,9 @@
+function P=nAChR_probability(t)
+%T1 = 0.0024; %negaligible
+Pmax = 0.96;
+%T2 = 0.46; % Mean opening duration
+%alpha = 1321/1e3; 
+beta = 6e4/1e3;
+%tau1=0;
+tau2=1/beta;
+P = Pmax*t/tau2*exp(-t/tau2);

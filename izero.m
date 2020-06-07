@@ -1,6 +1,5 @@
-function i=izero(t)
+function i=izero(t1p, t2p, ip, t)
 %filename: izero.m
-global t1p t2p ip;
 if((t1p<t)&(t<t2p))
   i=ip;
 else

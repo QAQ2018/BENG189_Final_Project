@@ -17,7 +17,3 @@ m=alpham(v)/(alpham(v)+betam(v))
 h=alphah(v)/(alphah(v)+betah(v))
 n=alphan(v)/(alphan(v)+betan(v))
 %
-%now let voltage jump to its value
-%just after t=0, without making
-%any further change in m,h,n:
-v=vstart
